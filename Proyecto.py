@@ -1,12 +1,11 @@
 from minizinc import Instance, Model, Solver
 
 """
-Autor: Carlos Stiven Ruiz Rojas
+Autor: Carlos Stiven Ruiz Rojas, Juan David Rojas
 Descripcion: Este archivo contiene el código necesario para resolver el problema planteado en el miniproyecto
 Fecha de creación: 28-11-2024
 Fecha de última modificación: 28-11-2024
 """
-
 
 # Asegúrate de tener algo similar a esto
 model = Model("miniproyecto.mzn")

@@ -4,7 +4,7 @@ import os
 from minizinc import Model, Instance, Solver
 
 """
-Autor: Carlos Stiven Ruiz Rojas
+Autor: Carlos Stiven Ruiz Rojas, Juan David Rojas
 Descripcion: Este archivo contiene el código necesario para resolver el problema planteado en el miniproyecto
 Fecha de creación: 28-11-2024
 Fecha de última modificación: 28-11-2024
@@ -131,7 +131,7 @@ class Aplicacion(ctk.CTk):
 
         archivo_salida = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Archivo de texto", "*.txt")])
         if archivo_salida:
-            # Aquí iría la lógica para guardar los resultados en el archivo
+            # Lógica para guardar los resultados en el archivo
             with open(archivo_salida, 'w') as f:
                 f.write(f"Resultados del procesamiento con {self.combo_opciones.get()}")
             self.lbl_resultados.configure(text=f"Resultados guardados en {os.path.basename(archivo_salida)}")
