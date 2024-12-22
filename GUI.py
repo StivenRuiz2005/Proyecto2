@@ -4,10 +4,10 @@ import os
 from minizinc import Model, Instance, Solver
 
 """
-Autor: Carlos Stiven Ruiz Rojas
+Autores: En el archivo README.md se encuentran los nombres de los autores
 Descripcion: Este archivo contiene el código necesario para resolver el problema planteado en el miniproyecto
 Fecha de creación: 28-11-2024
-Fecha de última modificación: 28-11-2024
+Fecha de última modificación: 21-12-2024
 """
 
 class Aplicacion(ctk.CTk):  
@@ -25,7 +25,7 @@ class Aplicacion(ctk.CTk):
         self.lbl_archivo = ctk.CTkLabel(self, text="Ningún archivo seleccionado")
         self.lbl_archivo.pack(pady=5)
 
-        self.opciones = ["gecode", "cbc", "chuffed"]
+        self.opciones = ["gecode", "coin-bc", "chuffed"]
         self.combo_opciones = ctk.CTkComboBox(self, values=self.opciones)
         self.combo_opciones.pack(pady=10)
 
@@ -86,6 +86,7 @@ class Aplicacion(ctk.CTk):
         self.tamano_matriz = tamano_matriz
 
     def procesar_resultados(self):
+        global result
         if not self.archivo_seleccionado.get():
             self.lbl_resultados.configure(text="Por favor, seleccione un archivo primero")
             return
@@ -93,25 +94,25 @@ class Aplicacion(ctk.CTk):
         opcion_seleccionada = self.combo_opciones.get()
         if opcion_seleccionada == "gecode":
             self.solver = "gecode"
-        elif opcion_seleccionada == "cbc":
-            self.solver = "cbc"
+        elif opcion_seleccionada == "coin-bc":
+            self.solver = "coin-bc"  
         elif opcion_seleccionada == "chuffed":
             self.solver = "chuffed"
 
-        # Configura los parámetros de MiniZinc con los datos leídos
+        
         model = Model("miniproyecto.mzn")
-        solver = Solver.lookup(self.solver)  # o el solver que estés usando
+        solver = Solver.lookup(self.solver)  
         instance = Instance(solver, model)
 
-        # Configura los parámetros
+        
         instance["n"] = self.tamano_matriz
         instance["num_actuales"] = len(self.localizaciones)
         instance["num_nuevas"] = self.num_programas
 
-        # Corrige la definición de actuales para que sea una matriz 2D
+        
         instance["actuales"] = self.localizaciones
 
-        # Usa una lista de listas para población y entorno
+        
         instance["poblacion"] = self.matriz_poblacion
         instance["entorno"] = self.matriz_empresarial
 
@@ -131,10 +132,18 @@ class Aplicacion(ctk.CTk):
 
         archivo_salida = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Archivo de texto", "*.txt")])
         if archivo_salida:
-            # Aquí iría la lógica para guardar los resultados en el archivo
-            with open(archivo_salida, 'w') as f:
-                f.write(f"Resultados del procesamiento con {self.combo_opciones.get()}")
-            self.lbl_resultados.configure(text=f"Resultados guardados en {os.path.basename(archivo_salida)}")
+            try:
+                
+                resultado_formateado = str(result)  # La salida generada por el modelo MiniZinc
+
+                with open(archivo_salida, 'w') as f:
+                    f.write(resultado_formateado)
+
+                self.lbl_resultados.configure(text=f"Resultados guardados en {os.path.basename(archivo_salida)}")
+            except Exception as e:
+                self.lbl_resultados.configure(text="Error en la resolución.")
+                import traceback
+                traceback.print_exc()
 
 
 if __name__ == "__main__":

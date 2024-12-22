@@ -4,6 +4,6 @@ Proyecto II - Análisis y diseño de algoritmo
 
 INTEGRANTES:  
   
-CARLOS STIVEN RUIZ ROJAS - 2259629  
+CARLOS STIVEN RUIZ ROJAS  
 
 
