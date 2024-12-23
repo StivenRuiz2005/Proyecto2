@@ -4,7 +4,10 @@ import os
 from minizinc import Model, Instance, Solver
 
 """
-Autores: En el archivo README.md se encuentran los nombres de los autores
+Autores: CARLOS STIVEN RUIZ ROJAS - 2259629
+         JHONY FERNANDO DUQUE VILLADA - 2259398
+         JUAN DAVID ROJAS NARVAEZ - 2259673
+         JUAN CAMILO DIAZ VALENCIA - 2259583
 Descripcion: Este archivo contiene el código necesario para resolver el problema planteado en el miniproyecto
 Fecha de creación: 28-11-2024
 Fecha de última modificación: 21-12-2024
